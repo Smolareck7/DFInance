@@ -1,0 +1,19 @@
+<resources>
+    <string name="addM">Добавить доход</string>
+    <string name="cleanM">Добавить расход</string>
+    <string name="changeL">Список изменений</string>
+    <string name="dayO">Отчеты по датам</string>
+    <string name="pO">Постоянные отчеты</string>
+    <string name="settings">Настройки</string>
+    <string name="app_name">DFinance</string>
+    <string name="sizeW">150dp</string>
+    <string name="sizeH">75dp</string>
+
+    <string-array name="sAdd">
+        <item>Зарплата</item>
+        <item>Кредит</item>
+        <item>Продажа</item>
+    </string-array>
+
+
+</resources>
