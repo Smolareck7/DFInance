@@ -56,6 +56,7 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         String id = etAM1.getText().toString();
 
 
+        
         String sobaka = selected.toString();
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
