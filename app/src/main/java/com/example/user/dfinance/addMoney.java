@@ -23,11 +23,11 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
     Button bAM3;
     TextView tvAM1;
     TextView tvAM2;
+    TextView tvAM3;
     Spinner spAM1;
     EditText etAM1;
+    EditText etAM2;
     DBHelper dbHelper;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,10 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         bAM3.setOnClickListener(this);
         tvAM1 = (TextView) findViewById(R.id.tvAM1);
         tvAM2 = (TextView) findViewById(R.id.tvAM2);
+        tvAM3 = (TextView) findViewById(R.id.tvAM3);
         spAM1 = (Spinner) findViewById(R.id.spAM1);
         etAM1 = (EditText) findViewById(R.id.etAM1);
+        etAM2 = (EditText) findViewById(R.id.etAM2);
 
         dbHelper = new DBHelper(this);
     }
@@ -51,22 +53,26 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         String selected = spAM1.getSelectedItem().toString();
-        String profit =  selected.toString();
-        String category =  etAM1.getText().toString();
+        String profit =  etAM1.getText().toString();
+        int profit2 = Integer.parseInt(profit);
+        String category =  selected.toString();
         String id = etAM1.getText().toString();
-
+        String title = etAM2.getText().toString();
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int summa = 0;
+        String summa1 = null;
 
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         switch (v.getId()) {
             case R.id.bAM1:
-                contentValues.put(DBHelper.KEY_PROFIT, profit);
+                contentValues.put(DBHelper.KEY_PROFIT, profit2);
                 contentValues.put(DBHelper.KEY_CATEGORY, category);
+                contentValues.put(DBHelper.KEY_TITLE, title);
                 contentValues.put(DBHelper.KEY_YEAR, year);
                 contentValues.put(DBHelper.KEY_MONTH, month);
                 contentValues.put(DBHelper.KEY_DAY, day);
@@ -78,20 +84,30 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
                     int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
                     int profitIndex = cursor.getColumnIndex(DBHelper.KEY_PROFIT);
                     int categoryIndex = cursor.getColumnIndex(DBHelper.KEY_CATEGORY);
+                    int titleIndex = cursor.getColumnIndex(DBHelper.KEY_TITLE);
                     int yearIndex = cursor.getColumnIndex(DBHelper.KEY_YEAR);
                     int monthIndex = cursor.getColumnIndex(DBHelper.KEY_MONTH);
                     int dayIndex = cursor.getColumnIndex(DBHelper.KEY_DAY);
                     do {
                         Log.d("mLog1", "id = " + cursor.getInt(idIndex) +
-                                ", profit = " + cursor.getString(profitIndex) +
+                                ", profit = " + cursor.getInt(profitIndex) +
                                 ", category = " + cursor.getString(categoryIndex) +
+                                ", title = " + cursor.getString(titleIndex) +
                                 ", year = " + cursor.getString(yearIndex) +
                                 ", month = " + cursor.getString(monthIndex) +
                                 ", day = " + cursor.getString(dayIndex)
                         );
+
+                            summa += cursor.getInt(profitIndex);
+
+
                     }while (cursor.moveToNext());
                 } else Log.d("mLog","0 rows");
                 cursor.close();
+                summa1 = Integer.toString(summa);
+                tvAM3.setText(summa1);
+
+
                 break;
 
             case R.id.bAM3:
@@ -101,11 +117,11 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
                 }
                 int delCount = database.delete(DBHelper.TABLE_CONTACTS, DBHelper.KEY_ID + "=" + id, null);
                 Log.d("mLog", "deleted rows count = " + delCount);
-
-
         }
         dbHelper.close();
     }
+
+
 
 }
 

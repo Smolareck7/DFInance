@@ -7,13 +7,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 8;
     public static final String DATABASE_NAME = "contactDb";
     public static final String TABLE_CONTACTS = "contacts";
 
     public static final String KEY_ID = "_id";
     public static final String KEY_PROFIT = "profit";
     public static final String KEY_CATEGORY = "category";
+    public static final String KEY_TITLE = "title";
     public static final String KEY_YEAR = "year";
     public static final String KEY_MONTH = "month";
     public static final String KEY_DAY = "day";
@@ -28,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + " integer primary key,"
                 + KEY_PROFIT + " text,"
                 + KEY_CATEGORY + " text,"
+                + KEY_TITLE + " text,"
                 + KEY_YEAR + " text,"
                 + KEY_MONTH + " text,"
                 + KEY_DAY + " text"
