@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -29,10 +30,12 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
     EditText etAM2;
     DBHelper dbHelper;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_money);
+
 
         bAM1 = (Button) findViewById(R.id.bAM1);
         bAM2 = (Button) findViewById(R.id.bAM2);
@@ -48,6 +51,7 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         etAM2 = (EditText) findViewById(R.id.etAM2);
 
         dbHelper = new DBHelper(this);
+
     }
 
     @Override
@@ -64,9 +68,13 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int summa = 0;
         String summa1 = null;
+        int i = 0;
 
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        ContentValues contentValues1 = new ContentValues();
+
+
 
         switch (v.getId()) {
             case R.id.bAM1:
@@ -77,9 +85,13 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
                 contentValues.put(DBHelper.KEY_MONTH, month);
                 contentValues.put(DBHelper.KEY_DAY, day);
                 database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
+
+
                 break;
             case R.id.bAM2:
                 Cursor cursor = database.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
+                Cursor cursor1 = database.query(DBHelper.TABLE_SPIN, null, null, null, null, null, null);
+
                 if (cursor.moveToFirst()){
                     int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
                     int profitIndex = cursor.getColumnIndex(DBHelper.KEY_PROFIT);
@@ -88,6 +100,7 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
                     int yearIndex = cursor.getColumnIndex(DBHelper.KEY_YEAR);
                     int monthIndex = cursor.getColumnIndex(DBHelper.KEY_MONTH);
                     int dayIndex = cursor.getColumnIndex(DBHelper.KEY_DAY);
+
                     do {
                         Log.d("mLog1", "id = " + cursor.getInt(idIndex) +
                                 ", profit = " + cursor.getInt(profitIndex) +
@@ -97,15 +110,28 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
                                 ", month = " + cursor.getString(monthIndex) +
                                 ", day = " + cursor.getString(dayIndex)
                         );
-
                             summa += cursor.getInt(profitIndex);
-
 
                     }while (cursor.moveToNext());
                 } else Log.d("mLog","0 rows");
                 cursor.close();
+
                 summa1 = Integer.toString(summa);
                 tvAM3.setText(summa1);
+
+                if (cursor1.moveToFirst()){
+                    int idIndex1 = cursor1.getColumnIndex(DBHelper.KEY_IDD);
+                    int statIndex1 = cursor1.getColumnIndex(DBHelper.KEY_STAT);
+                    int spinnerIndex1 = cursor1.getColumnIndex(DBHelper.KEY_SPINNER);
+                    do {
+                        Log.d("mLog2", "id = " + cursor1.getInt(idIndex1) +
+                                ", stat = " + cursor1.getString(statIndex1) +
+                                ", spinner = " + cursor1.getString(spinnerIndex1)
+                        );
+
+                    }while (cursor1.moveToNext());
+                } else Log.d("mLog2","0 rows");
+                cursor1.close();
 
 
                 break;
@@ -120,8 +146,5 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         }
         dbHelper.close();
     }
-
-
-
 }
 

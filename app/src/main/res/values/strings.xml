@@ -10,9 +10,8 @@
     <string name="sizeH">75dp</string>
 
     <string-array name="sAdd">
-        <item>Зарплата</item>
-        <item>Кредит</item>
-        <item>Продажа</item>
+        <item>Доход</item>
+        <item>Расход</item>
     </string-array>
 
 

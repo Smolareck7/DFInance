@@ -7,11 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 24;
     public static final String DATABASE_NAME = "contactDb";
     public static final String TABLE_CONTACTS = "contacts";
+    public static final String TABLE_SPIN = "spin";
 
     public static final String KEY_ID = "_id";
+    public static final String KEY_IDD = "_id";
     public static final String KEY_PROFIT = "profit";
     public static final String KEY_CATEGORY = "category";
     public static final String KEY_TITLE = "title";
@@ -19,14 +21,25 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_MONTH = "month";
     public static final String KEY_DAY = "day";
 
+    public static final String KEY_STAT = "stat";
+    public static final String KEY_SPINNER = "spinner";
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_CONTACTS + "(" + KEY_ID
-                + " integer primary key,"
+        db.execSQL("create table "
+                + TABLE_SPIN + "("
+                + KEY_IDD + " integer primary key autoincrement,"
+                + KEY_STAT + " text,"
+                + KEY_SPINNER + " text"
+                + ")");
+
+        db.execSQL("create table "
+                + TABLE_CONTACTS + "("
+                + KEY_ID + " integer primary key autoincrement,"
                 + KEY_PROFIT + " text,"
                 + KEY_CATEGORY + " text,"
                 + KEY_TITLE + " text,"
@@ -34,11 +47,13 @@ public class DBHelper extends SQLiteOpenHelper {
                 + KEY_MONTH + " text,"
                 + KEY_DAY + " text"
                 + ")");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists " + TABLE_CONTACTS);
+        db.execSQL("drop table if exists " + TABLE_SPIN);
 
         onCreate(db);
     }
