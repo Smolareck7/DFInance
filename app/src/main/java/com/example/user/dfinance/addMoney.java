@@ -36,7 +36,6 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_money);
 
-
         bAM1 = (Button) findViewById(R.id.bAM1);
         bAM2 = (Button) findViewById(R.id.bAM2);
         bAM3 = (Button) findViewById(R.id.bAM3);
@@ -50,8 +49,29 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         etAM1 = (EditText) findViewById(R.id.etAM1);
         etAM2 = (EditText) findViewById(R.id.etAM2);
 
-        dbHelper = new DBHelper(this);
 
+        dbHelper = new DBHelper(this);
+        SQLiteDatabase database2 = dbHelper.getWritableDatabase();
+
+        Cursor cursor2 = database2.query(DBHelper.TABLE_SPIN, null, null, null, null, null, null);
+        int i = cursor2.getCount();
+        int j = 0;
+        String [] data = new String[i];
+        if (cursor2.moveToFirst()){
+
+            int spinnerIndex2 = cursor2.getColumnIndex(DBHelper.KEY_SPINNER);
+            do {
+               data[j] = cursor2.getString(spinnerIndex2);
+                j++;
+            }while (cursor2.moveToNext());
+
+        } else Log.d("mLog2","0 rows");
+        cursor2.close();
+        dbHelper.close();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spAM1.setAdapter(adapter);
     }
 
     @Override
@@ -73,6 +93,8 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         ContentValues contentValues1 = new ContentValues();
+
+
 
 
 
