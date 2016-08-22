@@ -55,7 +55,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,23 +72,31 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Сохранить"
+            android:text="Сохранить доход"
             android:id="@+id/bAM1"
             android:layout_gravity="center" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Показать все доходы"
             android:id="@+id/bAM2"
             android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Очистить БД"
-            android:id="@+id/bAM3"
-            android:layout_gravity="center_horizontal" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView"
+            android:fillViewport="true"
+            android:clickable="false">
+
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="1"
+                android:id="@+id/gvAM1"
+                android:layout_gravity="center_horizontal" />
+        </ScrollView>
 
     </LinearLayout>
 

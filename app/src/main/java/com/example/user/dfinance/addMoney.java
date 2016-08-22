@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,15 +23,14 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
 
     Button bAM1;
     Button bAM2;
-    Button bAM3;
     TextView tvAM1;
     TextView tvAM2;
     TextView tvAM3;
     Spinner spAM1;
     EditText etAM1;
     EditText etAM2;
+    GridView gvAM1;
     DBHelper dbHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +39,15 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
 
         bAM1 = (Button) findViewById(R.id.bAM1);
         bAM2 = (Button) findViewById(R.id.bAM2);
-        bAM3 = (Button) findViewById(R.id.bAM3);
         bAM1.setOnClickListener(this);
         bAM2.setOnClickListener(this);
-        bAM3.setOnClickListener(this);
         tvAM1 = (TextView) findViewById(R.id.tvAM1);
         tvAM2 = (TextView) findViewById(R.id.tvAM2);
         tvAM3 = (TextView) findViewById(R.id.tvAM3);
         spAM1 = (Spinner) findViewById(R.id.spAM1);
         etAM1 = (EditText) findViewById(R.id.etAM1);
         etAM2 = (EditText) findViewById(R.id.etAM2);
-
+        gvAM1 = (GridView) findViewById(R.id.gvAM1);
 
         dbHelper = new DBHelper(this);
         SQLiteDatabase database2 = dbHelper.getWritableDatabase();
@@ -92,11 +91,6 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
 
         SQLiteDatabase database = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        ContentValues contentValues1 = new ContentValues();
-
-
-
-
 
         switch (v.getId()) {
             case R.id.bAM1:
@@ -108,11 +102,14 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
                 contentValues.put(DBHelper.KEY_DAY, day);
                 database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
 
-
                 break;
             case R.id.bAM2:
                 Cursor cursor = database.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
                 Cursor cursor1 = database.query(DBHelper.TABLE_SPIN, null, null, null, null, null, null);
+
+                int countCursor = cursor.getCount()*3;
+                int k = 0;
+                String [] arr = new String[countCursor];
 
                 if (cursor.moveToFirst()){
                     int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
@@ -124,18 +121,31 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
                     int dayIndex = cursor.getColumnIndex(DBHelper.KEY_DAY);
 
                     do {
-                        Log.d("mLog1", "id = " + cursor.getInt(idIndex) +
-                                ", profit = " + cursor.getInt(profitIndex) +
-                                ", category = " + cursor.getString(categoryIndex) +
-                                ", title = " + cursor.getString(titleIndex) +
-                                ", year = " + cursor.getString(yearIndex) +
-                                ", month = " + cursor.getString(monthIndex) +
-                                ", day = " + cursor.getString(dayIndex)
+                        Log.d("mLog1", "id = " + cursor.getInt(idIndex) +  // id
+                                ", profit = " + cursor.getInt(profitIndex) + //
+                                ", category = " + cursor.getString(categoryIndex) + //
+                                ", title = " + cursor.getString(titleIndex) + //
+                                ", year = " + cursor.getString(yearIndex) + //
+                                ", month = " + cursor.getString(monthIndex) + //
+                                ", day = " + cursor.getString(dayIndex) //
                         );
-                            summa += cursor.getInt(profitIndex);
 
+                        arr [k] = (cursor.getString(categoryIndex) + "    " + cursor.getString(profitIndex));
+                        k++;
+                        arr [k] = (cursor.getString(yearIndex) + "  " + cursor.getString(monthIndex)+ "  "+ cursor.getString(dayIndex));
+                        k++;
+                        arr [k] = (cursor.getString(titleIndex));
+                        k++;
+
+                            summa += cursor.getInt(profitIndex);
                     }while (cursor.moveToNext());
                 } else Log.d("mLog","0 rows");
+
+                ArrayAdapter<String> adapter1;
+                adapter1 = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_1, arr);
+                // Привяжем массив через адаптер к ListView
+                gvAM1.setAdapter(adapter1);
                 cursor.close();
 
                 summa1 = Integer.toString(summa);
@@ -154,17 +164,7 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
                     }while (cursor1.moveToNext());
                 } else Log.d("mLog2","0 rows");
                 cursor1.close();
-
-
                 break;
-
-            case R.id.bAM3:
-                if (id.equalsIgnoreCase(""))
-                {
-                    break;
-                }
-                int delCount = database.delete(DBHelper.TABLE_CONTACTS, DBHelper.KEY_ID + "=" + id, null);
-                Log.d("mLog", "deleted rows count = " + delCount);
         }
         dbHelper.close();
     }
