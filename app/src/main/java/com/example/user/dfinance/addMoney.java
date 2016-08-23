@@ -81,6 +81,7 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
         String category =  selected.toString();
         String id = etAM1.getText().toString();
         String title = etAM2.getText().toString();
+        String status = "–î–æ—Ö–æ–¥";
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -96,6 +97,7 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
             case R.id.bAM1:
                 contentValues.put(DBHelper.KEY_PROFIT, profit2);
                 contentValues.put(DBHelper.KEY_CATEGORY, category);
+                contentValues.put(DBHelper.KEY_STATUS, status);
                 contentValues.put(DBHelper.KEY_TITLE, title);
                 contentValues.put(DBHelper.KEY_YEAR, year);
                 contentValues.put(DBHelper.KEY_MONTH, month);
@@ -104,47 +106,57 @@ public class addMoney extends AppCompatActivity implements View.OnClickListener 
 
                 break;
             case R.id.bAM2:
-                Cursor cursor = database.query(DBHelper.TABLE_CONTACTS, null, null, null, null, null, null);
+                String  a = null;
+                String[] b = null;
+
+                a = "status == ?";
+                b = new String[]{"–î–æ—Ö–æ–¥"};
+
+                Cursor cursor = database.query(DBHelper.TABLE_CONTACTS, null, a, b, null, null, null);
                 Cursor cursor1 = database.query(DBHelper.TABLE_SPIN, null, null, null, null, null, null);
 
                 int countCursor = cursor.getCount()*3;
                 int k = 0;
                 String [] arr = new String[countCursor];
 
-                if (cursor.moveToFirst()){
+                if (cursor.moveToFirst()) {
                     int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
                     int profitIndex = cursor.getColumnIndex(DBHelper.KEY_PROFIT);
                     int categoryIndex = cursor.getColumnIndex(DBHelper.KEY_CATEGORY);
+                    int statusIndex = cursor.getColumnIndex(DBHelper.KEY_STATUS);
                     int titleIndex = cursor.getColumnIndex(DBHelper.KEY_TITLE);
                     int yearIndex = cursor.getColumnIndex(DBHelper.KEY_YEAR);
                     int monthIndex = cursor.getColumnIndex(DBHelper.KEY_MONTH);
                     int dayIndex = cursor.getColumnIndex(DBHelper.KEY_DAY);
 
-                    do {
-                        Log.d("mLog1", "id = " + cursor.getInt(idIndex) +  // id
-                                ", profit = " + cursor.getInt(profitIndex) + //
-                                ", category = " + cursor.getString(categoryIndex) + //
-                                ", title = " + cursor.getString(titleIndex) + //
-                                ", year = " + cursor.getString(yearIndex) + //
-                                ", month = " + cursor.getString(monthIndex) + //
-                                ", day = " + cursor.getString(dayIndex) //
-                        );
+                        do {
+                            Log.d("mLog1", "id = " + cursor.getInt(idIndex) +  // id
+                                    ", profit = " + cursor.getInt(profitIndex) + //
+                                    ", category = " + cursor.getString(categoryIndex) + //
+                                    ", status = " + cursor.getString(statusIndex) + //
+                                    ", title = " + cursor.getString(titleIndex) + //
+                                    ", year = " + cursor.getString(yearIndex) + //
+                                    ", month = " + cursor.getString(monthIndex) + //
+                                    ", day = " + cursor.getString(dayIndex) //
+                            );
 
-                        arr [k] = (cursor.getString(categoryIndex) + "    " + cursor.getString(profitIndex));
-                        k++;
-                        arr [k] = (cursor.getString(yearIndex) + "  " + cursor.getString(monthIndex)+ "  "+ cursor.getString(dayIndex));
-                        k++;
-                        arr [k] = (cursor.getString(titleIndex));
-                        k++;
+
+                            arr[k] = (cursor.getString(categoryIndex) + "    " + cursor.getString(profitIndex));
+                            k++;
+                            arr[k] = (cursor.getString(yearIndex) + "  " + cursor.getString(monthIndex) + "  " + cursor.getString(dayIndex));
+                            k++;
+                            arr[k] = (cursor.getString(titleIndex));
+                            k++;
 
                             summa += cursor.getInt(profitIndex);
-                    }while (cursor.moveToNext());
-                } else Log.d("mLog","0 rows");
+                        } while (cursor.moveToNext());
+                    } else Log.d("mLog", "0 rows");
+
 
                 ArrayAdapter<String> adapter1;
                 adapter1 = new ArrayAdapter<String>(this,
                         android.R.layout.simple_list_item_1, arr);
-                // œË‚ˇÊÂÏ Ï‡ÒÒË‚ ˜ÂÂÁ ‡‰‡ÔÚÂ Í ListView
+                // –ü—Ä–∏–≤—è–∂–µ–º –º–∞—Å—Å–∏–≤ —á–µ—Ä–µ–∑ –∞–¥–∞–ø—Ç–µ—Ä –∫ ListView
                 gvAM1.setAdapter(adapter1);
                 cursor.close();
 
