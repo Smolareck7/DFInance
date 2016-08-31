@@ -25,9 +25,6 @@
             android:name=".changeList"
             android:label="@string/changeL" />
         <activity
-            android:name=".dayOtchet"
-            android:label="@string/dayO" />
-        <activity
             android:name=".pOtchet"
             android:label="@string/pO" />
         <activity

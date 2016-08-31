@@ -8,6 +8,21 @@
 
 
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Добавить новую категорию"
+            android:id="@+id/tvS3"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,17 +31,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Название"
+            android:text="Название категории"
             android:id="@+id/tvS1"
 
             android:textSize="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/etS1"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -40,14 +58,18 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Выбор типа категории"
             android:id="@+id/tvS2"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" />
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/spS1"
             android:layout_weight="1"
-            android:entries="@array/sAdd"/>
+            android:entries="@array/sAdd"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
 
     </LinearLayout>
 
@@ -61,7 +83,8 @@
             android:layout_height="wrap_content"
             android:text="Сохранить"
             android:id="@+id/bS1"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_margin="10dp" />
 
     </LinearLayout>
 

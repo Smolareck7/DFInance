@@ -20,14 +20,17 @@
             android:id="@+id/tvAM1"
 
             android:textSize="28dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/etAM1" />
+            android:id="@+id/etAM1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,47 +44,100 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Выбор категории"
             android:id="@+id/tvAM2"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/spAM1"
             android:layout_weight="1"
-            android:entries="@array/sAdd"/>
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp" />
+
+
+
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выбрать другую дату"
+        android:id="@+id/bAM3"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Описание:"
-            android:id="@+id/tvAM3" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:layout_width="306dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/etAM2" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spAM2"
+                android:layout_weight="1"
+                android:entries="@array/day"
+                android:visibility="invisible" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Сохранить доход"
-            android:id="@+id/bAM1"
-            android:layout_gravity="center" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spAM3"
+                android:layout_weight="1"
+                android:entries="@array/month"
+                android:visibility="invisible" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Показать все доходы"
-            android:id="@+id/bAM2"
-            android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Описание:"
+                android:id="@+id/tvAM3"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp" />
+
+            <EditText
+                android:layout_width="306dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/etAM2"
+                android:layout_marginLeft="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сохранить доход"
+                android:id="@+id/bAM1"
+                android:layout_gravity="center" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Показать все доходы"
+                android:id="@+id/bAM2"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"

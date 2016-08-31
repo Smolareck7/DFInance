@@ -13,10 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button b1;
     Button b2;
-    Button b3;
     Button b4;
-    Button b5;
-    Button b6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,17 +21,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         b1 = (Button) findViewById(R.id.b1);
         b2 = (Button) findViewById(R.id.b2);
-        b3 = (Button) findViewById(R.id.b3);
         b4 = (Button) findViewById(R.id.b4);
-        b5 = (Button) findViewById(R.id.b5);
-        b6 = (Button) findViewById(R.id.b6);
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
-        b3.setOnClickListener(this);
         b4.setOnClickListener(this);
-        b5.setOnClickListener(this);
-        b6.setOnClickListener(this);
-
     }
 
     @Override
@@ -49,21 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent2 = new Intent(this, cleanMoney.class);
                 startActivity(intent2);
                 break;
-            case R.id.b3:
-                Intent intent3 = new Intent(this, changeList.class);
-                startActivity(intent3);
-                break;
             case R.id.b4:
-                Intent intent4 = new Intent(this, dayOtchet.class);
+                Intent intent4 = new Intent(this, settings.class);
                 startActivity(intent4);
-                break;
-            case R.id.b5:
-                Intent intent5 = new Intent(this, pOtchet.class);
-                startActivity(intent5);
-                break;
-            case R.id.b6:
-                Intent intent6 = new Intent(this, settings.class);
-                startActivity(intent6);
                 break;
             default:break;
         }
